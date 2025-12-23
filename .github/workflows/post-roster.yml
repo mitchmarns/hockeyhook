@@ -20,6 +20,6 @@ jobs:
 
       - name: Post to Discord
         env:
-          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK }}
           TEAM_NAME: ${{ inputs.team }}
         run: node post-roster.js
