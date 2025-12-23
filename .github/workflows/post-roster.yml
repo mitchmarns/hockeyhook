@@ -1,0 +1,25 @@
+name: Post roster to Discord
+
+on:
+  workflow_dispatch:
+    inputs:
+      team:
+        description: "Team name (must match rosters.json key). Leave blank to use first team."
+        required: false
+        default: ""
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Post to Discord
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          TEAM_NAME: ${{ inputs.team }}
+        run: node post-roster.js
