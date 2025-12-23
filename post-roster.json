@@ -13,17 +13,20 @@ function renderTeamLineup(teamName, team) {
   const d = team.D ?? [];
   const g = team.G ?? [];
 
-  const fLines = f.slice(0, 4).map((ln, i) =>
-    `L${i + 1}: ${fmt(ln.LW)} — ${fmt(ln.C)} — ${fmt(ln.RW)}`
-  ).join("\n");
+  const fLines = f
+    .slice(0, 4)
+    .map((ln, i) => `L${i + 1}: ${fmt(ln.LW)} — ${fmt(ln.C)} — ${fmt(ln.RW)}`)
+    .join("\n");
 
-  const dPairs = d.slice(0, 3).map((pr, i) =>
-    `D${i + 1}: ${fmt(pr.LD)} — ${fmt(pr.RD)}`
-  ).join("\n");
+  const dPairs = d
+    .slice(0, 3)
+    .map((pr, i) => `D${i + 1}: ${fmt(pr.LD)} — ${fmt(pr.RD)}`)
+    .join("\n");
 
-  const goalies = g.slice(0, 2).map((gg, i) =>
-    `G${i + 1}: ${fmt(gg.G)}`
-  ).join("\n");
+  const goalies = g
+    .slice(0, 2)
+    .map((gg, i) => `G${i + 1}: ${fmt(gg.G)}`)
+    .join("\n");
 
   return [
     `🏒 **${teamName} — Character Lines**`,
@@ -54,9 +57,7 @@ async function postWebhook(payload) {
 async function main() {
   const rosters = JSON.parse(await fs.readFile("./rosters.json", "utf8"));
 
-  const teamName = TEAM_NAME && rosters[TEAM_NAME]
-    ? TEAM_NAME
-    : Object.keys(rosters)[0];
+  const teamName = TEAM_NAME && rosters[TEAM_NAME] ? TEAM_NAME : Object.keys(rosters)[0];
 
   if (!teamName) throw new Error("No teams found in rosters.json");
 
@@ -64,7 +65,7 @@ async function main() {
 
   await postWebhook({
     username: "ROSTER BOT",
-    content
+    content,
   });
 }
 
